@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tugas7_http_request/ui/widget/cust_button.dart';
+import 'package:tugas7_http_request/ui/widget/cust_logo.dart';
 
 class CustForm extends StatefulWidget {
   const CustForm({Key? key}) : super(key: key);
@@ -135,15 +136,11 @@ class _CustFormState extends State<CustForm> {
           height: double.infinity,
           child: SingleChildScrollView(
             padding:
-                const EdgeInsets.symmetric(horizontal: 40.0, vertical: 40.0),
+                const EdgeInsets.symmetric(horizontal: 100.0, vertical: 40.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircleAvatar(
-                  radius: 50.0,
-                  child: Image.asset('images/logo_gits.png'),
-                  backgroundColor: Colors.transparent,
-                ),
+                const Logo(),
                 const SizedBox(height: 30.0),
                 _emailfield(),
                 const SizedBox(height: 30.0),
