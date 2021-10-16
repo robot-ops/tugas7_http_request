@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CustButton extends StatelessWidget {
   const CustButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: Colors.transparent,
       padding: const EdgeInsets.symmetric(vertical: 15.0),
-      child: MaterialButton(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.white,
+        ),
         onPressed: () {},
-        color: Colors.blueAccent,
-        minWidth: 200.0,
-        height: 40.0,
         child: const Text(
           'Login',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Color(0xFF2772CE),
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

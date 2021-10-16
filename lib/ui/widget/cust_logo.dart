@@ -8,7 +8,7 @@ class Logo extends StatelessWidget {
     return CircleAvatar(
       backgroundColor: Colors.transparent,
       radius: 50.0,
-      child: Image.asset('assets/logo_gits.png'),
+      child: Image.asset('images/logo_gits.png'),
     );
   }
 }

@@ -13,18 +13,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-        children: const <Widget>[
-          Logo(),
-          SizedBox(
-            height: 50.0,
-          ),
-          CustForm(),
-          CustButton(),
-        ],
-      ),
+    return const Card(
+      child: CustForm(),
     );
   }
 }
