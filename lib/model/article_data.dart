@@ -25,3 +25,5 @@ class Article {
     );
   }
 }
+
+List<Article> artikel = [];
