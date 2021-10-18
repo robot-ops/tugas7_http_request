@@ -5,6 +5,7 @@ import 'package:tugas7_http_request/constants/const.dart';
 import 'package:tugas7_http_request/model/reqres_login.dart';
 import 'package:tugas7_http_request/model/route.dart';
 import 'package:tugas7_http_request/service/api_manager.dart';
+import 'package:tugas7_http_request/ui/homepage/homepage.dart';
 import 'package:tugas7_http_request/ui/widget/cust_form.dart';
 import 'package:tugas7_http_request/ui/widget/cust_logo.dart';
 
@@ -19,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController _controllerEmail;
   late TextEditingController _controllerPassword;
   bool _showPassword = true;
-  bool _onSend = false;
+  bool _onClick = false;
 
   @override
   void initState() {
@@ -31,33 +32,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(8.0),
-          children: _listTextInput(),
-        ),
+      body: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(8.0),
+        children: _listTextInput(),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(_onSend ? Icons.clear : Icons.login),
-        onPressed: _onSend ? null : _login,
-        label: Text(_onSend ? 'loading...' : 'Login'),
+        icon: Icon(_onClick ? Icons.clear : Icons.login),
+        onPressed: _onClick ? null : _login,
+        label: Text(_onClick ? 'loading...' : 'Login'),
       ),
     );
   }
 
   List<Widget> _listTextInput() {
     return <Widget>[
-      Logo(),
+      const Logo(),
       CustomForm(
         controller: _controllerEmail,
         labelText: 'Email',
-        suffixIconData: Icons.info,
-        onPressedIcon: () {
-          _controllerEmail.text = Constant.trueEmail;
-        },
         keyboardType: TextInputType.emailAddress,
-        enable: !_onSend,
+        enable: !_onClick,
       ),
       CustomForm(
         controller: _controllerPassword,
@@ -68,23 +63,49 @@ class _LoginPageState extends State<LoginPage> {
         },
         keyboardType: TextInputType.visiblePassword,
         obscureText: _showPassword,
-        enable: !_onSend,
+        enable: !_onClick,
+      ),
+      const SizedBox(height: 25),
+      Divider(),
+      const Center(
+        child: Text(
+          'Or',
+          style: TextStyle(fontSize: 15),
+        ),
+      ),
+      Divider(),
+      const SizedBox(height: 25),
+      SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 50.0,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
+          },
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+          ),
+          child: const Text('Continue Without Login'),
+        ),
       ),
     ];
   }
 
   Future<void> _login() async {
-    setState(() => _onSend = true);
-    ReqResLogin _reqResLogin = await ApiClients.getToken(
+    setState(() => _onClick = true);
+    ReqResLogin _reqResLogin = await LoginApi.getToken(
       email: _controllerEmail.text,
       password: _controllerPassword.text,
     );
     if (_reqResLogin.token?.isNotEmpty ?? false) {
-      SharedPreferences _preferences = await SharedPreferences.getInstance();
-      await _preferences.setString(Constant.keyToken, _reqResLogin.token!);
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString(Constant.keyToken, _reqResLogin.token!);
       Navigator.pushReplacementNamed(
         context,
-        AppRoute.homeRoute,
+        AppRoute.home,
         arguments: _reqResLogin.token,
       );
     } else {
@@ -96,6 +117,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     }
-    setState(() => _onSend = false);
+    setState(() => _onClick = false);
   }
 }

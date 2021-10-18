@@ -1,11 +1,11 @@
-class Search {
-  String url;
-  String title;
-  int id;
-  Search({required this.url, required this.id, required this.title});
+class SearchData {
+  String? url;
+  String? title;
+  int? id;
+  SearchData({required this.url, required this.id, required this.title});
 
-  factory Search.fromJson(Map<String, dynamic> json) {
-    return Search(
+  factory SearchData.fromJson(Map<String, dynamic> json) {
+    return SearchData(
       url: json["url"],
       id: json["id"],
       title: json["title"],
