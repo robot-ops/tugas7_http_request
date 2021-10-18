@@ -4,4 +4,7 @@
 - Aditya Bayu Aji
 - Irvan Firmansyah
 # Screenshoot
+- Homepage
+- SearchPage
+- LoginPage
 
